@@ -1,0 +1,25 @@
+{
+  "name": "validate-git-version",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jlegrone/validate-git-version.git"
+  },
+  "author": "Jacob LeGrone <dev@jacoblegrone.com> (https://jacoblegrone.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jlegrone/validate-git-version/issues"
+  },
+  "homepage": "https://github.com/jlegrone/validate-git-version#readme",
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "semver": "^5.4.1"
+  }
+}
