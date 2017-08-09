@@ -1,23 +1,19 @@
-const { exec } = require('child_process')
-const { satisfies } = require('semver')
+import { exec } from 'child_process'
+import promisify from 'pify'
+import { satisfies } from 'semver'
 
-function validateGitVersion(
+async function validateGitVersion(
   versionRange,
-  onInvalid=() => null,
-  onValid=() => null,
+  onInvalid=() => false,
+  onValid=() => true,
   isValid=(current, range) => satisfies(current, range)
 ) {
-  exec('git --version', (err, stdout, stderr) => {
-    const error = err || stderr
-    if (error) {
-      throw new Error(error)
-    } else {
-      const currentVersion = stdout.replace('git version ', '').trim()
-      return isValid(currentVersion, versionRange) ?
-       onValid(currentVersion) :
-       onInvalid(currentVersion)
-    }
-  })
+  const stdout = await promisify(exec)('git --version')
+  const currentVersion = stdout.replace('git version ', '').trim()
+
+  return isValid(currentVersion, versionRange) ?
+   onValid(currentVersion) :
+   onInvalid(currentVersion)
 }
 
 module.exports = validateGitVersion
